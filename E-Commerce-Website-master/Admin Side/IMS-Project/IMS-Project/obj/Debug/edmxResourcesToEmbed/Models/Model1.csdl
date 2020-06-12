@@ -1,0 +1,719 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Ecommerce1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="custID" />
+      <PropertyRef Name="productID" />
+      <PropertyRef Name="orderId" />
+    </Key>
+    <Property Name="custID" Type="Int32" Nullable="false" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <Property Name="orderId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Cart_Customer" FromRole="Cart" ToRole="Customer" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Cart_Orders" FromRole="Cart" ToRole="Orders" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Cart_Products" FromRole="Cart" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Picture1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Picture2" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Boolean" />
+    <NavigationProperty Name="genPromoRights" Relationship="Self.FK__genPromoR__Categ__2D27B809" FromRole="Categories" ToRole="genPromoRight" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Products__Catego__4222D4EF" FromRole="Categories" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Lname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="Picture" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Customer" FromRole="Customer" ToRole="Cart" />
+    <NavigationProperty Name="Wishlists" Relationship="Self.FK__Wishlist__Custom__52593CB8" FromRole="Customer" ToRole="Wishlist" />
+    <NavigationProperty Name="Login" Relationship="Self.FK_Customer_Login" FromRole="Customer" ToRole="Login" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Customer" FromRole="Customer" ToRole="Orders" />
+    <NavigationProperty Name="Reviews" Relationship="Self.FK_Review_Customer" FromRole="Customer" ToRole="Review" />
+  </EntityType>
+  <EntityType Name="genMainSlider">
+    <Key>
+      <PropertyRef Name="MainSliderID" />
+    </Key>
+    <Property Name="MainSliderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImageURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="AltText" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="OfferTag" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="BtnText" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isDeleted" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="genPromoRight">
+    <Key>
+      <PropertyRef Name="PromoRightID" />
+    </Key>
+    <Property Name="PromoRightID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="ImageURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="AltText" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="OfferTag" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isDeleted" Type="Boolean" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__genPromoR__Categ__2D27B809" FromRole="genPromoRight" ToRole="Categories" />
+  </EntityType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_Login" FromRole="Login" ToRole="Customer" />
+    <NavigationProperty Name="Sellers" Relationship="Self.FK_Sellers_Login" FromRole="Login" ToRole="Sellers" />
+  </EntityType>
+  <EntityType Name="orderDetail">
+    <Key>
+      <PropertyRef Name="orderId" />
+    </Key>
+    <Property Name="orderId" Type="Int32" Nullable="false" />
+    <Property Name="payment_type" Type="Int32" Nullable="false" />
+    <Property Name="total_amount" Type="Int32" Nullable="false" />
+    <Property Name="total_discount" Type="Int32" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="total_items" Type="Int32" />
+    <NavigationProperty Name="PaymentType" Relationship="Self.FK__orderDeta__payme__38996AB5" FromRole="orderDetails" ToRole="PaymentType" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_orderDetails_Orders" FromRole="orderDetails" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="custId" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="isCompleted" Type="Boolean" />
+    <Property Name="OrderDate" Type="DateTime" Precision="3" />
+    <Property Name="DIspatched" Type="Boolean" />
+    <Property Name="DispatchedDate" Type="DateTime" Precision="3" />
+    <Property Name="Shipped" Type="Boolean" />
+    <Property Name="ShippingDate" Type="DateTime" Precision="3" />
+    <Property Name="Deliver" Type="Boolean" />
+    <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+    <Property Name="CancelOrder" Type="Boolean" />
+    <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Orders" FromRole="Orders" ToRole="Cart" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Orders_Customer" FromRole="Orders" ToRole="Customer" />
+    <NavigationProperty Name="orderDetail" Relationship="Self.FK_orderDetails_Orders" FromRole="Orders" ToRole="orderDetails" />
+  </EntityType>
+  <EntityType Name="PaymentType">
+    <Key>
+      <PropertyRef Name="PayTypeID" />
+    </Key>
+    <Property Name="PayTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="orderDetails" Relationship="Self.FK__orderDeta__payme__38996AB5" FromRole="PaymentType" ToRole="orderDetails" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sellerID" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <Property Name="discount" Type="Int32" Nullable="false" />
+    <Property Name="details" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="price" Type="Int32" Nullable="false" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="SubCategoryID" Type="Int32" />
+    <Property Name="ProductAvailable" Type="Boolean" />
+    <Property Name="Weight" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ShortDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="LongDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="Picture1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Picture2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Picture3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Picture4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ImageURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Products" FromRole="Products" ToRole="Cart" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__Products__Catego__4222D4EF" FromRole="Products" ToRole="Categories" />
+    <NavigationProperty Name="SubCategory" Relationship="Self.FK__Products__SubCat__4316F928" FromRole="Products" ToRole="SubCategory" />
+    <NavigationProperty Name="Wishlists" Relationship="Self.FK__Wishlist__Produc__534D60F1" FromRole="Products" ToRole="Wishlist" />
+    <NavigationProperty Name="Seller" Relationship="Self.FK_Products_Sellers" FromRole="Products" ToRole="Sellers" />
+    <NavigationProperty Name="Reviews" Relationship="Self.FK_Review_Products" FromRole="Products" ToRole="Review" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="productID" />
+      <PropertyRef Name="custId" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="custId" Type="Int32" Nullable="false" />
+    <Property Name="rating" Type="Double" Nullable="false" />
+    <Property Name="comment" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="isDelete" Type="Boolean" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Review_Customer" FromRole="Review" ToRole="Customer" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Review_Products" FromRole="Review" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Seller">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Lname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="PhotoPath" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Login" Relationship="Self.FK_Sellers_Login" FromRole="Sellers" ToRole="Login" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Products_Sellers" FromRole="Sellers" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="SubCategory">
+    <Key>
+      <PropertyRef Name="SubCategoryID" />
+    </Key>
+    <Property Name="SubCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Picture1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Picture2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="isActive" Type="Boolean" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Products__SubCat__4316F928" FromRole="SubCategory" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Wishlist">
+    <Key>
+      <PropertyRef Name="WishlistID" />
+    </Key>
+    <Property Name="WishlistID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="isActive" Type="Boolean" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__Wishlist__Custom__52593CB8" FromRole="Wishlist" ToRole="Customer" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__Wishlist__Produc__534D60F1" FromRole="Wishlist" ToRole="Products" />
+  </EntityType>
+  <Association Name="FK_Cart_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="custID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cart_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="orderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cart_Products">
+    <End Role="Products" Type="Self.Product" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__genPromoR__Categ__2D27B809">
+    <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+    <End Role="genPromoRight" Type="Self.genPromoRight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="genPromoRight">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__Catego__4222D4EF">
+    <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Wishlist__Custom__52593CB8">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Wishlist">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Login">
+    <End Role="Login" Type="Self.Login" Multiplicity="1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="custId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Review" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="custId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sellers_Login">
+    <End Role="Login" Type="Self.Login" Multiplicity="1" />
+    <End Role="Sellers" Type="Self.Seller" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="Sellers">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orderDeta__payme__38996AB5">
+    <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="1" />
+    <End Role="orderDetails" Type="Self.orderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentType">
+        <PropertyRef Name="PayTypeID" />
+      </Principal>
+      <Dependent Role="orderDetails">
+        <PropertyRef Name="payment_type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderDetails_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="orderDetails" Type="Self.orderDetail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="orderDetails">
+        <PropertyRef Name="orderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__SubCat__4316F928">
+    <End Role="SubCategory" Type="Self.SubCategory" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategory">
+        <PropertyRef Name="SubCategoryID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="SubCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Wishlist__Produc__534D60F1">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Wishlist">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Sellers">
+    <End Role="Sellers" Type="Self.Seller" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sellers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="sellerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Products">
+    <End Role="Products" Type="Self.Product" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Review" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Ecommerce1Entities4" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Carts" EntityType="Self.Cart" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="genMainSliders" EntityType="Self.genMainSlider" />
+    <EntitySet Name="genPromoRights" EntityType="Self.genPromoRight" />
+    <EntitySet Name="Logins" EntityType="Self.Login" />
+    <EntitySet Name="orderDetails" EntityType="Self.orderDetail" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="PaymentTypes" EntityType="Self.PaymentType" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="Reviews" EntityType="Self.Review" />
+    <EntitySet Name="Sellers" EntityType="Self.Seller" />
+    <EntitySet Name="SubCategories" EntityType="Self.SubCategory" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Wishlists" EntityType="Self.Wishlist" />
+    <AssociationSet Name="FK_Cart_Customer" Association="Self.FK_Cart_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cart_Orders" Association="Self.FK_Cart_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cart_Products" Association="Self.FK_Cart_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__genPromoR__Categ__2D27B809" Association="Self.FK__genPromoR__Categ__2D27B809">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="genPromoRight" EntitySet="genPromoRights" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__Catego__4222D4EF" Association="Self.FK__Products__Catego__4222D4EF">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Wishlist__Custom__52593CB8" Association="Self.FK__Wishlist__Custom__52593CB8">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Wishlist" EntitySet="Wishlists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Login" Association="Self.FK_Customer_Login">
+      <End Role="Login" EntitySet="Logins" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Customer" Association="Self.FK_Orders_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Customer" Association="Self.FK_Review_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sellers_Login" Association="Self.FK_Sellers_Login">
+      <End Role="Login" EntitySet="Logins" />
+      <End Role="Sellers" EntitySet="Sellers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orderDeta__payme__38996AB5" Association="Self.FK__orderDeta__payme__38996AB5">
+      <End Role="PaymentType" EntitySet="PaymentTypes" />
+      <End Role="orderDetails" EntitySet="orderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderDetails_Orders" Association="Self.FK_orderDetails_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="orderDetails" EntitySet="orderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__SubCat__4316F928" Association="Self.FK__Products__SubCat__4316F928">
+      <End Role="SubCategory" EntitySet="SubCategories" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Wishlist__Produc__534D60F1" Association="Self.FK__Wishlist__Produc__534D60F1">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Wishlist" EntitySet="Wishlists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Sellers" Association="Self.FK_Products_Sellers">
+      <End Role="Sellers" EntitySet="Sellers" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Products" Association="Self.FK_Review_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <FunctionImport Name="add_review">
+      <Parameter Name="productID" Mode="In" Type="Int32" />
+      <Parameter Name="custId" Mode="In" Type="Int32" />
+      <Parameter Name="rating" Mode="In" Type="Double" />
+      <Parameter Name="comment" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="add_to_cart">
+      <Parameter Name="CustID" Mode="In" Type="Int32" />
+      <Parameter Name="productID" Mode="In" Type="Int32" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="check_login">
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="flag" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="get_Average_rating" ReturnType="Collection(Ecommerce1Model.get_Average_rating_Result)">
+      <Parameter Name="productId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="get_invoice" ReturnType="Collection(Ecommerce1Model.get_invoice_Result)">
+      <Parameter Name="custID" Mode="In" Type="Int32" />
+      <Parameter Name="total_amount" Mode="InOut" Type="Int32" />
+      <Parameter Name="total_discount" Mode="InOut" Type="Int32" />
+      <Parameter Name="total_items" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="get_product" ReturnType="Collection(Ecommerce1Model.get_product_Result)">
+      <Parameter Name="productId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="get_TopRated_Products" ReturnType="Collection(Ecommerce1Model.get_TopRated_Products_Result)">
+      <Parameter Name="noOfProducts" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="give_search_suggestions" ReturnType="Collection(String)">
+      <Parameter Name="word" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="place_order">
+      <Parameter Name="orderId" Mode="In" Type="Int32" />
+      <Parameter Name="payment_type" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="post_product">
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="sellerID" Mode="In" Type="Int32" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+      <Parameter Name="discount" Mode="In" Type="Int32" />
+      <Parameter Name="details" Mode="In" Type="String" />
+      <Parameter Name="price" Mode="In" Type="Int32" />
+      <Parameter Name="categoryID" Mode="In" Type="Int32" />
+      <Parameter Name="subCategoryID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="remove_from_cart">
+      <Parameter Name="CustID" Mode="In" Type="Int32" />
+      <Parameter Name="productID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="search_product" ReturnType="Collection(String)">
+      <Parameter Name="key" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sign_up">
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="Fname" Mode="In" Type="String" />
+      <Parameter Name="Lname" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="phone" Mode="In" Type="String" />
+      <Parameter Name="address" Mode="In" Type="String" />
+      <Parameter Name="city" Mode="In" Type="String" />
+      <Parameter Name="type" Mode="In" Type="String" />
+      <Parameter Name="flag" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Ecommerce1Model.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Ecommerce1Model.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="ViewCustomer" ReturnType="Collection(Ecommerce1Model.ViewCustomer_Result)" />
+    <FunctionImport Name="ViewSellers" ReturnType="Collection(Ecommerce1Model.ViewSellers_Result)" />
+    <FunctionImport Name="whole_review" ReturnType="Collection(Ecommerce1Model.whole_review_Result)">
+      <Parameter Name="productId" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="get_Average_rating_Result">
+    <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+    <Property Type="Double" Name="Average_Rating" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="get_invoice_Result">
+    <Property Type="Int32" Name="ProductId" Nullable="false" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="quantity" Nullable="false" />
+    <Property Type="Int32" Name="price" Nullable="false" />
+    <Property Type="Int32" Name="Discounted_Price" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="get_product_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="sellerID" Nullable="false" />
+    <Property Type="Int32" Name="quantity" Nullable="false" />
+    <Property Type="Int32" Name="discount" Nullable="false" />
+    <Property Type="String" Name="details" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="price" Nullable="false" />
+    <Property Type="Int32" Name="CategoryID" Nullable="false" />
+    <Property Type="Int32" Name="SubCategoryID" Nullable="true" />
+    <Property Type="Boolean" Name="ProductAvailable" Nullable="true" />
+    <Property Type="String" Name="Weight" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Size" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ShortDescription" Nullable="true" MaxLength="300" />
+    <Property Type="String" Name="LongDescription" Nullable="true" MaxLength="2000" />
+    <Property Type="String" Name="Picture1" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Picture2" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Picture3" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Picture4" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ImageURL" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="get_TopRated_Products_Result">
+    <Property Type="Int32" Name="productID" Nullable="false" />
+    <Property Type="Double" Name="rating" Nullable="false" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="sellerID" Nullable="false" />
+    <Property Type="Int32" Name="quantity" Nullable="false" />
+    <Property Type="Int32" Name="discount" Nullable="false" />
+    <Property Type="String" Name="details" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="price" Nullable="false" />
+    <Property Type="Int32" Name="CategoryID" Nullable="false" />
+    <Property Type="Int32" Name="SubCategoryID" Nullable="true" />
+    <Property Type="Boolean" Name="ProductAvailable" Nullable="true" />
+    <Property Type="String" Name="Weight" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Size" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ShortDescription" Nullable="true" MaxLength="300" />
+    <Property Type="String" Name="LongDescription" Nullable="true" MaxLength="2000" />
+    <Property Type="String" Name="Picture1" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Picture2" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Picture3" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Picture4" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ImageURL" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="ViewCustomer_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Fname" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Lname" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="username" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="email" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="phone" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="address" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="PostalCode" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Country" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="State" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Gender" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="Age" Nullable="true" />
+    <Property Type="String" Name="Picture" Nullable="true" MaxLength="250" />
+  </ComplexType>
+  <ComplexType Name="ViewSellers_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Fname" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Lname" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="username" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="email" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="phone" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="address" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Gender" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="Age" Nullable="true" />
+    <Property Type="String" Name="PhotoPath" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="whole_review_Result">
+    <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="custId" Nullable="false" />
+    <Property Type="Double" Name="rating" Nullable="false" />
+    <Property Type="String" Name="comment" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="date" Nullable="false" />
+  </ComplexType>
+</Schema>

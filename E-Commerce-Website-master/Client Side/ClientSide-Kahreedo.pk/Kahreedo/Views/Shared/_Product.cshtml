@@ -1,0 +1,39 @@
+﻿@model Khareedo.Models.Product
+
+@* for now old price is minus not exists,price/2 mb *@
+<li>
+    <figure>
+        @* name instead of alttext *@
+        <a class="aa-product-img" href="@Url.Action("ViewDetails", "Product", new { id = Model.ID })"><img src="@Model.ImageURL" alt="@Model.name"></a>
+        <a class="aa-add-card-btn" href="@(Session["username"] != null ? Url.Action("AddToCart", "Product", new { id = @Model.ID}) : Url.Action("Login", "Account"))"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+        <figcaption>
+            <h4 class="aa-product-title"><a href="#">@Model.name</a></h4>
+            <span class="aa-product-price">Rs. @Model.price</span><span class="aa-product-old-price">
+                <del>
+                @*@if(Model.Oldprice!=null)
+                {*@
+                    @* it will show old price randomly mb,just like daraz:) etc should be greater only*@        
+                     @*<script>var rand=Math.floor(Math.random() * 10) </script>*@
+                    <text>Rs. @(Model.price*2)</text>  
+                @*}*@
+                </del>
+            </span>
+        </figcaption>
+    </figure>
+    <div class="aa-product-hvr-content">
+        <a href="@(Session["username"]!=null ? Url.Action("WishList","Product", new {id=@Model.ID }) :Url.Action("Login","Account"))" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+        <a href="@Url.Action("ViewDetails", "Product", new { id = Model.ID })" title="View Details" data-toggle="tooltip" data-placement="top"><span class="fa fa-info"></span></a>
+
+        
+    </div>
+    @*@if (Model.AddBadge == true)
+    {
+         <span class="aa-badge  @Model.OfferBadgeClass" href="#">@Model.OfferTitle</span>
+    }*@
+
+    @{
+        TempData["returnURL"] = Request.RawUrl;
+        }
+
+</li>
+

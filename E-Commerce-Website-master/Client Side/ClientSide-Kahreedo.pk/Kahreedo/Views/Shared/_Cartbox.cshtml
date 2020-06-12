@@ -1,0 +1,72 @@
+﻿@if (@ViewBag.cartBox != null)
+{
+
+    foreach (var item in @ViewBag.cartBox)
+    {
+        <li>
+            <a class="aa-cartbox-img" href="#"><img src="@item.Product.ImageURL" alt="@item.Product.name"></a>
+            <div class="aa-cartbox-info">
+                <h4><a href="#">@item.Product.name</a></h4>
+                <p>@item.quantity x @item.Product.price</p>
+            </div>
+            <a class="aa-remove-product" href="@Url.Action("Remove", "MyCart", new { id=item.productID})"><span class="fa fa-times"></span></a>
+        </li>
+    }
+}
+<li>
+    <span class="aa-cartbox-total-title">
+        Total
+    </span>
+    <span class="aa-cartbox-total-price">
+        @ViewBag.Total
+    </span>
+</li>
+@*old2  *@
+@*@using Khareedo.Models
+
+    @if (TempShpData.items.ToList().Count != 0)
+    {
+        foreach (var item in TempShpData.items)
+        {
+            <li>
+                <a class="aa-cartbox-img" href="#"><img src="@item.Product.ImageURL" alt="@item.Product.name"></a>
+                <div class="aa-cartbox-info">
+                    <h4><a href="#">@item.Product.name</a></h4>
+                    <p>@item.quantity x @item.Product.price</p>
+                </div>
+                <a class="aa-remove-product" href="@Url.Action("Remove", "MyCart", new { id=item.productID})"><span class="fa fa-times"></span></a>
+            </li>
+        }
+    }
+    <li>
+        <span class="aa-cartbox-total-title">
+            Total
+        </span>
+        <span class="aa-cartbox-total-price">
+            @ViewBag.Total
+        </span>
+    </li>*@
+@*old  *@
+@*@if (@ViewBag.cartBox!=null)
+    {
+
+        foreach (var item in @ViewBag.cartBox)
+        {
+            <li>
+                <a class="aa-cartbox-img" href="#"><img src="@item.Product.ImageURL" alt="@item.Product.AltText"></a>
+                <div class="aa-cartbox-info">
+                    <h4><a href="#">@item.Product.Name</a></h4>
+                    <p>@item.Quantity x @item.TotalAmount</p>
+                </div>
+                <a class="aa-remove-product" href="@Url.Action("Remove", "MyCart", new { id=item.ProductID})"><span class="fa fa-times"></span></a>
+            </li>
+        }
+    }
+    <li>
+        <span class="aa-cartbox-total-title">
+            Total
+        </span>
+        <span class="aa-cartbox-total-price">
+            @ViewBag.Total
+        </span>
+    </li>*@
